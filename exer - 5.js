@@ -1,36 +1,42 @@
 function counter (str) {
-    if (!(typeof str === typeof "") && !(typeof str === typeof 1)) {
-        console.log("Invalid input. String/number rquired");
+    try {
+        if (!(typeof str === "string") && !(typeof str === "number"))
+        throw "Invalid input. String/number rquired";
+    }
+    catch (err) {
+        console.log(err)
         return
     };
 
-    if (typeof str === typeof "") {
+    let counter;
+
+    if (typeof str === "string") {
         let vowels = str.match(/[aeiou]/gi);
         if (vowels) {
-            console.log("Number of vowels = ",vowels.length);
-            return
+            counter = vowels.length;
+            return counter
         }
-        // else if (str != "0" && !Number(str)) {
         else if (Number(str) != 0 && !Number(str)) {
-            console.log("No vowels on the string");
-            return
+            counter = 0;
+            return counter
         }
     }
     else {
         str = String(str);
     };
 
-    let digits = Math.ceil(Math.log10(str));
-    if (digits < str.length) {
-        digits = str.length;
+    counter = Math.ceil(Math.log10(str));
+    if (counter < str.length) {
+        counter = str.length;
     };
-    console.log("Number of digits = ",digits);
+    
+    return counter
 };
 
-counter("Hello World"); // EXPECTED: Number of vowels = 3
-counter("bcdfghjklmnpqrstvwxyz"); // EXPECTED: No vowels on the string
-counter("1255"); // EXPECTED: Number of digits = 4
-counter("000"); // EXPECTED: Number of digits = 2
-counter(000); // EXPECTED: Number of digits = 1
-counter(123); // EXPECTED: Number of digits = 3
+console.log(counter("Hello World")); // EXPECTED: 3
+console.log(counter("bcdfghjklmnpqrstvwxyz")); // EXPECTED: 0
+console.log(counter("1255")); // EXPECTED: 4
+console.log(counter("000")); // EXPECTED: 3
+console.log(counter(000)); // EXPECTED: 1
+console.log(counter(123)); // EXPECTED: 3
 counter(null); // EXPECTED: Invalid input. String/number rquired
