@@ -1,48 +1,53 @@
-const wordArray = ["part","step","picture","quote","update","answer","speed","assist","survive","circulate"];
+Array.prototype.sortBy = function (sort,order) {
+    try {
+        if (sort != "length" && sort != "consonant" && sort != undefined && sort != "descending")
+        throw "Invalid sorting type"
+        if (order != "descending" && order != undefined)
+        throw "Invalid ordering type"
+    }
+    catch (err) {
+        console.log(err);
+        return
+    }
 
+    // Default values //
+    // If sort = undefined -> sorting will be lexicographic
+    // If order = undefined -> ordering will be ascending
 
-function sortArray (ascend,byLength) {
+    // Sorting //
+    if (sort === "descending") {
+        order = "descending" 
+    }
 
-    let ascending; // default value = true
-    let orderByLength; // default value = true
-
-    if (ascend === undefined || ascend === true || ascend === false) {
-        ascending = (ascend === undefined)?true:ascend;
+    if (sort === "length") {
+        this.sort(function (a,b) {
+            a = a.length;
+            b = b.length;
+            return a-b
+        });
+    }
+    else if (sort === "consonant") {
+        this.sort(function (a,b) {
+            let regex = /[aeiou]/gi;
+            let listA = a.match(regex);
+            let listB = b.match(regex);
+            a = listA?listA.length:0;
+            b = listB?listB.length:0;
+            return a-b
+        });
     }
     else {
-        return "invalid argument";
-    };
-
-    if (byLength === undefined || byLength === true || byLength === false) {
-        orderByLength = (byLength === undefined)?true:byLength;
+        this.sort(); // Default
     }
-    else {
-        return "invalid argument";
-    };
 
-    let orderedArray = [wordArray[0]];
-    for (let i=1; i<wordArray.length; i++) {
-        let position = orderedArray.length;
-        for (let j=0; j<orderedArray.length; j++) {
-            let condition; 
-            if (orderByLength) {
-                condition = ascending?(wordArray[i].length <= orderedArray[j].length):(wordArray[i].length > orderedArray[j].length);
-            }
-            else {
-                let regex = /[^aeiou]/gi;
-                condition = ascending?(wordArray[i].match(regex).length <= orderedArray[j].match(regex).length):(wordArray[i].match(regex).length > orderedArray[j].match(regex).length);
-            };
-            if (condition) {
-                position = j;
-                j = orderedArray.length;
-            }
-        }
-        orderedArray.splice(position,0,wordArray[i]);
+    // Ordering //
+    if (order === "descending") {
+        this.reverse();
     }
-    return orderedArray
+
 };
 
-let newArray = sortArray(false,true);
+const wordArray = ["part","step","picture","quote","update","answer","speed","assist","survive","circulate"];
 
-console.log(newArray);
-
+wordArray.sortBy("length");
+console.log(wordArray)
