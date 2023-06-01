@@ -1,22 +1,13 @@
 Array.prototype.sortBy = function (sort,order) {
-    try {
-        if (sort != "length" && sort != "consonant" && sort != undefined && sort != "descending")
-        throw "Invalid sorting type"
-        if (order != "descending" && order != undefined)
-        throw "Invalid ordering type"
-    }
-    catch (err) {
-        console.log(err);
-        return
-    }
-
-    // Default values //
-    // If sort = undefined -> sorting will be lexicographic
-    // If order = undefined -> ordering will be ascending
-
-    // Sorting //
-    if (sort === "descending") {
-        order = "descending" 
+    if (arguments.length === 2 && order != true && order != false) return undefined;
+    if (arguments.length === 1) {
+        if (sort === true || sort === false) {
+            order = sort;
+            sort = "alphanumeric";
+        }
+        else if (sort != "alphanumeric" && sort != "length" && sort != "consonant") {
+            return undefined
+        }
     }
 
     if (sort === "length") {
@@ -36,12 +27,12 @@ Array.prototype.sortBy = function (sort,order) {
             return a-b
         });
     }
-    else {
+    else if (!sort || sort === "alphanumeric") {
         this.sort(); // Default
     }
 
     // Ordering //
-    if (order === "descending") {
+    if (order === false) {
         this.reverse();
     }
 
@@ -49,5 +40,5 @@ Array.prototype.sortBy = function (sort,order) {
 
 const wordArray = ["part","step","picture","quote","update","answer","speed","assist","survive","circulate"];
 
-wordArray.sortBy("length");
+wordArray.sortBy("length",false);
 console.log(wordArray)
