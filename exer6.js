@@ -1,110 +1,75 @@
-///// Tree constructor /////
-
-// function Tree (childrenGenerations,parentName) {
-//     if (!parentName) {
-//         parentName = "";
-//     };
-//     let letters = ["a","b","c","d","e"];
-//     let branches = randomBetween(1,letters.length);
-
-//     for (let i=0; i<branches; i++)
-//     {
-//         let thisNodeName = parentName + letters[i]
-//         if (childrenGenerations > 0) {
-//             this[thisNodeName] = new Tree(randomBetween(0,childrenGenerations-1),thisNodeName);
-//         }
-//     }
-// }
-
-
-///// Auxiliar functions /////
-
-// function randomBetween (min,max) {
-//     return min + Math.floor((max-min+1)*Math.random())
-// };
-
-
 ///// Function Display Tree //////
 
 function displayTree (tree) {
-    let space = "";
-    let blank = "  "
-    function displayProperty (node) {
-        for (let prop in node) {
-            if (node.hasOwnProperty(prop)) {
-                let value = node[prop];
-                console.log(space + prop + ((Object.keys(value) != 0)?":":""));
-                space = space + "  ";
-                displayProperty(value)
-                space = space.slice(0,space.length-blank.length);
-            };
-        };
-    };
-    displayProperty(tree);
+    console.group(tree.value)
+    for (let child of tree.children) {
+        displayTree(child)
+    }
+    console.groupEnd();
 }
 
 
 ///// My Tree /////
 
-// const myTree = new Tree(4);
-// displayTree(myTree);
+let myTree = {
+    value:"a", children: [
+        {value:"aa", children: [
+            {value:"aaa", children: [
+                {value:"aaaa", children: []},
+                {value:"aaab", children: []}
+            ]},
+            {value:"aab", children: [
+                {value:"aaba", children: []},
+                {value:"aabb", children: []},
+                {value:"aabb", children: []}
+            ]},
+            {value:"aac", children: [
+                {value:"aaca", children: []}
+            ]},
+            {value:"aad", children: [
+                {value:"aada", children: []},
+                {value:"aadb", children: []},
+                {value:"aadc", children: []},
+                {value:"aadd", children: []}
+            ]}
+        ]},
 
-let myNewTree = {
-    a: {
-        aa: {
-            aaa: {
-                aaaa: {},
-                aaab: {}
-            },
-            aab: {
-                aaba: {},
-                aabb: {},
-                aabc: {}
-            },
-            aac: {
-                aaca: {}
-            },
-            aad: {
-                aada: {},
-                aadb: {},
-                aadc: {},
-                aadd: {}
-            }
-        },
+        {value:"ab", children: [
+            {value:"aba", children: [
+                {value:"abaa", children: []},
+                {value:"abab", children: []}
+            ]},
+            {value:"abb", children: [
+                {value:"abba", children: []},
+                {value:"abbb", children: []},
+                {value:"abbc", children: []}
+            ]}
+        ]},
 
-        ab: {
-            aba: {
-                abaa: {},
-                abab: {}
-            },
-            abb: {
-                abba: {},
-                abbb: {},
-                abbc: {}
-            }
-        },
-
-        ac: {
-            aca: {
-                aaaa: {},
-                aaab: {},
-                aaac: {},
-                aaad: {}
-            },
-            acb: {
-                aaba: {},
-                aabb: {},
-                aabc: {},
-                aabd: {}
-            },
-            acc: {
-                aaca: {},
-                aacb: {},
-                aacc: {},
-                aacd: {}
-            }
-        }
-    }
+        {value:"ac", children: [
+            {value:"aca", children: [
+                {value:"acaa", children: []},
+                {value:"acab", children: []},
+                {value:"acac", children: []},
+                {value:"acad", children: []}
+            ]},
+            {value:"acb", children: [
+                {value:"acba", children: []},
+                {value:"acbb", children: []},
+                {value:"acbc", children: []},
+                {value:"acbd", children: []}
+            ]},
+            {value:"acc", children: [
+                {value:"acca", children: []},
+                {value:"accb", children: []},
+                {value:"accc", children: []},
+                {value:"accd", children: []}
+            ]}
+        ]}
+    ]
 };
 
-displayTree(myNewTree);
+
+///// Display Tree /////
+
+displayTree(myTree);
