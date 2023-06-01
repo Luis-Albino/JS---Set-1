@@ -1,9 +1,9 @@
 const target = document.getElementById("target");
 
-Object.prototype.styleElement = function (newColor,newSize,newBackground) {
-    this.style.color = newColor?newColor:"black";
-    this.style.fontSize = newSize?newSize:"20px";
-    this.style.background = newBackground?newBackground:"white";
+function styleElement (domElement,newColor = "black",newSize = "20px",newBackground = "white") {
+    domElement.style.color = newColor;
+    domElement.style.fontSize = newSize;
+    domElement.style.background = newBackground;
 };
 
-target.styleElement("red","35px","blue");
+styleElement(target,"red","35px","blue");
