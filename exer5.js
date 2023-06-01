@@ -1,12 +1,5 @@
 function counter (str) {
-    try {
-        if (!(typeof str === "string") && !(typeof str === "number"))
-        throw "Invalid input. String/number rquired";
-    }
-    catch (err) {
-        console.log(err)
-        return
-    };
+    if (!(typeof str === "string") && !(typeof str === "number")) return undefined;
 
     let counter;
 
@@ -39,4 +32,4 @@ console.log(counter("1255")); // EXPECTED: 4
 console.log(counter("000")); // EXPECTED: 3
 console.log(counter(000)); // EXPECTED: 1
 console.log(counter(123)); // EXPECTED: 3
-counter(null); // EXPECTED: Invalid input. String/number rquired
+console.log(counter(null)); // EXPECTED: Invalid input. String/number rquired
