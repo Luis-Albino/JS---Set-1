@@ -20,7 +20,7 @@ function counter (str) {
 
 console.log(counter("Hello World")); // EXPECTED: 3
 console.log(counter("bcdfghjklmnpqrstvwxyz")); // EXPECTED: 0
-console.log(counter("1255")); // EXPECTED: 4
+console.log(counter("1255")); // EXPECTED: 0
 console.log(counter("000")); // EXPECTED: 0
 console.log(counter(000)); // EXPECTED: 1
 console.log(counter(123)); // EXPECTED: 3
